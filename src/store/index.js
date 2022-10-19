@@ -45,37 +45,82 @@ export default new Vuex.Store({
       {
         id: 6,
         name: "hhh",
-        phone: "+791866666",
+        phone: "89184818",
         activator: true,
         employees: [7],
       },
       {
         id: 7,
         name: "qqq",
-        phone: "+79187777",
+        phone: "89180797997",
         activator: false,
         employees: [],
       },
       {
         id: 8,
         name: "zzz",
-        phone: "+7918888",
+        phone: "3",
+        activator: false,
+        root: true,
+        employees: [],
+      },
+      {
+        id: 9,
+        name: "aaa",
+        phone: "11",
+        activator: false,
+        root: true,
+        employees: [],
+      },
+      {
+        id: 10,
+        name: "aaa",
+        phone: "0",
         activator: false,
         root: true,
         employees: [],
       },
     ],
+    sortedBy: "phone",
   },
   getters: {
     getRootUsers(state) {
       return state.users.filter((el) => el.root);
     },
+    getNewId(state) {
+      return state.users.length + 1;
+    },
+    sortedUsers(state, getters) {
+      const byField = (field) => {
+        return (a, b) => (a[field] > b[field] ? 1 : -1);
+      };
+
+      const { sortedBy } = state;
+      const users = getters.getRootUsers;
+
+      if (sortedBy === "default") {
+        return users;
+      }
+      if (sortedBy === "phone") {
+        return users.sort(byField("phone"));
+      }
+      if (sortedBy === "name") {
+        return users.sort(byField("name"));
+      }
+      return [];
+    },
   },
   mutations: {
     activatorChange(state, payload) {
-      console.log("activatorChange ", payload.id, " value ", payload.activator);
       const findIndex = state.users.findIndex((el) => el.id === payload.id);
       state.users[findIndex].activator = payload.activator;
+    },
+    addUser(state, payload) {
+      state.users.push(payload);
+    },
+    addEmployee(state, payload) {
+      const findIndex = state.users.findIndex((el) => el.id === payload.id);
+      state.users[findIndex].employees.push(payload.idEmployee);
     },
   },
   actions: {},

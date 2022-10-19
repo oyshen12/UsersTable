@@ -1,29 +1,18 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark> UsersTable </v-app-bar>
-
     <v-main>
-      <users-table :rootUsers="getRootUsers"></users-table>
+      <users-table></users-table>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import UsersTable from "@/components/UsersTable.vue";
-import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "App",
-
   components: { UsersTable },
-
-  data: () => ({
-    //
-  }),
-  computed: {
-    ...mapState([""]),
-    ...mapGetters(["getRootUsers"]),
-  },
 };
 </script>
 

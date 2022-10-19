@@ -1,9 +1,9 @@
 <template>
   <v-list-item v-if="!user.employees.length">
-    <v-list-item-title>{{ user.phone }}</v-list-item-title>
+    <v-list-item-title style="height: 48px">{{ user.phone }}</v-list-item-title>
   </v-list-item>
   <v-list v-else>
-    <v-list-item-title>{{ user.phone }}</v-list-item-title>
+    <v-list-item-title style="height: 48px">{{ user.phone }}</v-list-item-title>
     <template v-if="user.activator">
       <table-item
         v-for="usr in user.employees"
@@ -46,12 +46,15 @@ export default {
 <style scoped>
 .v-list-item {
   padding: 0 !important;
-  outline: 1px solid grey;
+  margin: 0 !important;
+  outline: none !important;
 }
 .v-list-item__title {
-  text-align: center;
-  height: 56px !important;
+  display: flex;
+  align-items: center;
   outline: 1px solid grey;
+  margin-bottom: 1px;
+  padding-left: 16px;
 }
 .v-list {
   padding: 0 !important;
