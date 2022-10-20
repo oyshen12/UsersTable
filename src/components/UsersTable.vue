@@ -10,10 +10,14 @@
       >
       <div class="d-flex pt-2">
         <v-card class="" width="300">
-          <div class="table-name">Имя</div>
+          <div class="table-name">
+            <div>Имя</div>
+            <v-spacer></v-spacer>
+            <v-btn @click="sortByName">Sort</v-btn>
+          </div>
           <v-list class="pa-0">
             <table-item
-              v-for="user in sortedUsers"
+              v-for="user in sortedUsers()"
               :key="user.id"
               :user="user"
               :nesting="0"
@@ -21,10 +25,14 @@
           </v-list>
         </v-card>
         <v-card class="" width="300">
-          <div class="table-name">Телефон</div>
+          <div class="table-name">
+            <div>Телефон</div>
+            <v-spacer></v-spacer>
+            <v-btn @click="sortByPhone">Sort</v-btn>
+          </div>
           <v-list class="pa-0">
             <table-item-phone
-              v-for="user in sortedUsers"
+              v-for="user in sortedUsers()"
               :key="user.id"
               :user="user"
               :nesting="0"
@@ -47,18 +55,37 @@
 import TableItem from "@/components/TableItem.vue";
 import TableItemPhone from "@/components/TableItemPhone.vue";
 import AddUser from "@/components/AddUser.vue";
-import { mapGetters } from "vuex";
+import UserMixin from "@/mixins/UserMixin";
 
 export default {
   components: { TableItem, TableItemPhone, AddUser },
+  mixins: [UserMixin],
   data() {
     return {
       search: "",
       addUserModal: false,
     };
   },
-  computed: {
-    ...mapGetters(["sortedUsers"]),
+  computed: {},
+  methods: {
+    sortByPhone() {
+      if (this.sortedBy === "phoneDown") {
+        this.setSortedBy("phoneUp");
+      } else if (this.sortedBy === "phoneUp") {
+        this.setSortedBy("default");
+      } else {
+        this.setSortedBy("phoneDown");
+      }
+    },
+    sortByName() {
+      if (this.sortedBy === "nameDown") {
+        this.setSortedBy("nameUp");
+      } else if (this.sortedBy === "nameUp") {
+        this.setSortedBy("default");
+      } else {
+        this.setSortedBy("nameDown");
+      }
+    },
   },
 };
 </script>

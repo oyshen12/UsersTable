@@ -7,6 +7,14 @@ export default new Vuex.Store({
   state: {
     users: [
       {
+        id: 0,
+        name: "aaa",
+        phone: "+",
+        root: true,
+        activator: true,
+        employees: [],
+      },
+      {
         id: 1,
         name: "qwe",
         phone: "+7918111111",
@@ -81,33 +89,18 @@ export default new Vuex.Store({
         employees: [],
       },
     ],
-    sortedBy: "phone",
+    sortedBy: "default",
   },
   getters: {
     getRootUsers(state) {
+      console.log("getRootUsers");
       return state.users.filter((el) => el.root);
     },
     getNewId(state) {
       return state.users.length + 1;
     },
-    sortedUsers(state, getters) {
-      const byField = (field) => {
-        return (a, b) => (a[field] > b[field] ? 1 : -1);
-      };
-
-      const { sortedBy } = state;
-      const users = getters.getRootUsers;
-
-      if (sortedBy === "default") {
-        return users;
-      }
-      if (sortedBy === "phone") {
-        return users.sort(byField("phone"));
-      }
-      if (sortedBy === "name") {
-        return users.sort(byField("name"));
-      }
-      return [];
+    getUsers(state) {
+      return state.users;
     },
   },
   mutations: {
@@ -121,6 +114,9 @@ export default new Vuex.Store({
     addEmployee(state, payload) {
       const findIndex = state.users.findIndex((el) => el.id === payload.id);
       state.users[findIndex].employees.push(payload.idEmployee);
+    },
+    setSortedBy(state, payload) {
+      state.sortedBy = payload;
     },
   },
   actions: {},

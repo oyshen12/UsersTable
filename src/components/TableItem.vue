@@ -33,9 +33,9 @@
     </template>
     <template v-if="user.activator">
       <table-item
-        v-for="usr in user.employees"
-        :user="getUser(usr)"
-        :key="usr"
+        v-for="usr in sortedUsers(user.employees)"
+        :user="usr"
+        :key="usr.id"
         :nesting="nesting + 1"
       ></table-item>
     </template>
@@ -44,24 +44,19 @@
 
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations } from "vuex";
+import UserMixin from "@/mixins/UserMixin";
 
 export default {
   name: "TableItem",
   props: ["user", "nesting"],
+  mixins: [UserMixin],
   data() {
     return {};
   },
-  computed: {
-    ...mapState(["users"]),
-  },
   methods: {
     ...mapMutations(["activatorChange"]),
-    getUser(id) {
-      return this.users.find((el) => el.id === id);
-    },
     activator() {
-      console.log("activator");
       this.activatorChange({
         id: this.user.id,
         activator: !this.user.activator,
