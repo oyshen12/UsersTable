@@ -5,12 +5,11 @@
   <v-list v-else>
     <v-list-item-title style="height: 48px">{{ user.phone }}</v-list-item-title>
     <template v-if="user.activator">
-      <table-item
+      <table-item-phone
         v-for="usr in sortedUsers(user.employees)"
         :user="usr"
         :id="usr.id"
-        :nesting="nesting + 15"
-      ></table-item>
+      ></table-item-phone>
     </template>
   </v-list>
 </template>
@@ -21,8 +20,8 @@ import { mapMutations } from "vuex";
 import UserMixin from "@/mixins/UserMixin";
 
 export default {
-  name: "TableItem",
-  props: ["user", "nesting"],
+  name: "TableItemPhone",
+  props: ["user"],
   mixins: [UserMixin],
   data() {
     return {};

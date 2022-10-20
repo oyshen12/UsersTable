@@ -1,33 +1,35 @@
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   computed: {
     ...mapState(["sortedBy", "users"]),
-    ...mapGetters(["getRootUsers"]),
   },
   methods: {
-    ...mapMutations(["setSortedBy"]),
+    ...mapMutations(["setSortedBy", "setUsers"]),
+    getRootUsers() {
+      return this.users.filter((el) => el.root);
+    },
     sortedUsers(payload) {
       const byPhone = (value) => {
         const parseFloat = (val) => Number.parseFloat(val.phone);
-
         if (value === "up") {
           return (a, b) => (parseFloat(a) < parseFloat(b) ? 1 : -1);
         }
         return (a, b) => (parseFloat(a) > parseFloat(b) ? 1 : -1);
       };
       const byName = (value) => {
+        const toLowerCase = (val) => val.name.toLocaleLowerCase();
         if (value === "up") {
-          return (a, b) => (a.name < b.name ? 1 : -1);
+          return (a, b) => (toLowerCase(a) < toLowerCase(b) ? 1 : -1);
         }
-        return (a, b) => (a.name > b.name ? 1 : -1);
+        return (a, b) => (toLowerCase(a) > toLowerCase(b) ? 1 : -1);
       };
 
       let users = [];
       if (payload?.length) {
         users = this.users.filter((el) => payload.includes(el.id));
       } else {
-        users = this.getRootUsers;
+        users = this.getRootUsers();
       }
 
       if (this.sortedBy === "default") {
@@ -46,6 +48,14 @@ export default {
         return users.sort(byName("down"));
       }
       return [];
+    },
+    downloadState() {
+      const users = JSON.parse(localStorage.getItem("users"));
+      if (users) {
+        this.setUsers(users);
+      } else {
+        localStorage.setItem("users", JSON.stringify(this.users));
+      }
     },
   },
 };

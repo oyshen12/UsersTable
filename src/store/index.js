@@ -8,15 +8,15 @@ export default new Vuex.Store({
     users: [
       {
         id: 0,
-        name: "aaa",
-        phone: "+",
+        name: "Иван",
+        phone: "+7918000000",
         root: true,
         activator: true,
         employees: [],
       },
       {
         id: 1,
-        name: "qwe",
+        name: "Петр",
         phone: "+7918111111",
         root: true,
         activator: true,
@@ -24,66 +24,66 @@ export default new Vuex.Store({
       },
       {
         id: 2,
-        name: "asd",
+        name: "Алексей",
         phone: "+7918222222",
         activator: false,
         employees: [],
       },
       {
         id: 3,
-        name: "zxc",
+        name: "Александр",
         phone: "+7918333333",
         activator: false,
         employees: [],
       },
       {
         id: 4,
-        name: "tyu",
+        name: "Сергей",
         phone: "+7918444444",
         activator: true,
         employees: [5],
       },
       {
         id: 5,
-        name: "uio",
+        name: "Дмитрий",
         phone: "+7918555555",
         activator: true,
         employees: [6],
       },
       {
         id: 6,
-        name: "hhh",
-        phone: "89184818",
+        name: "Владимир",
+        phone: "+7918666666",
         activator: true,
         employees: [7],
       },
       {
         id: 7,
-        name: "qqq",
-        phone: "89180797997",
+        name: "Владислав",
+        phone: "+7918777777",
         activator: false,
         employees: [],
       },
       {
         id: 8,
-        name: "zzz",
-        phone: "3",
+        name: "Никита",
+        phone: "+7918888888",
         activator: false,
         root: true,
         employees: [],
       },
       {
         id: 9,
-        name: "aaa",
-        phone: "11",
+        name: "Арсен",
+        phone: "+7918999999",
         activator: false,
         root: true,
         employees: [],
       },
       {
         id: 10,
-        name: "aaa",
-        phone: "0",
+        name: "Ярослав",
+        phone: "+7918101010",
         activator: false,
         root: true,
         employees: [],
@@ -92,18 +92,14 @@ export default new Vuex.Store({
     sortedBy: "default",
   },
   getters: {
-    getRootUsers(state) {
-      console.log("getRootUsers");
-      return state.users.filter((el) => el.root);
-    },
     getNewId(state) {
       return state.users.length + 1;
     },
-    getUsers(state) {
-      return state.users;
-    },
   },
   mutations: {
+    setUsers(state, payload) {
+      state.users = payload;
+    },
     activatorChange(state, payload) {
       const findIndex = state.users.findIndex((el) => el.id === payload.id);
       state.users[findIndex].activator = payload.activator;

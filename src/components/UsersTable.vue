@@ -10,10 +10,19 @@
       >
       <div class="d-flex pt-2">
         <v-card class="" width="300">
-          <div class="table-name">
+          <div class="table-name" @click="sortByName">
             <div>Имя</div>
             <v-spacer></v-spacer>
-            <v-btn @click="sortByName">Sort</v-btn>
+            <v-icon
+              v-if="sortedBy === 'nameDown' || sortedBy === 'nameUp'"
+              color="black"
+              :style="{
+                transform:
+                  sortedBy === 'nameUp' ? 'rotate(0deg)' : 'rotate(180deg)',
+              }"
+              class="mr-2"
+              >mdi-arrow-up</v-icon
+            >
           </div>
           <v-list class="pa-0">
             <table-item
@@ -25,10 +34,19 @@
           </v-list>
         </v-card>
         <v-card class="" width="300">
-          <div class="table-name">
+          <div class="table-name" @click="sortByPhone">
             <div>Телефон</div>
             <v-spacer></v-spacer>
-            <v-btn @click="sortByPhone">Sort</v-btn>
+            <v-icon
+              v-if="sortedBy === 'phoneDown' || sortedBy === 'phoneUp'"
+              color="black"
+              :style="{
+                transform:
+                  sortedBy === 'phoneUp' ? 'rotate(0deg)' : 'rotate(180deg)',
+              }"
+              class="mr-2"
+              >mdi-arrow-up</v-icon
+            >
           </div>
           <v-list class="pa-0">
             <table-item-phone
@@ -87,6 +105,9 @@ export default {
       }
     },
   },
+  mounted() {
+    this.downloadState();
+  },
 };
 </script>
 
@@ -100,6 +121,13 @@ export default {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   margin-bottom: 1px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.4s ease-in-out;
+}
+.table-name:hover {
+  color: black;
+  background: rgba(180, 180, 180, 0.5);
 }
 .empty__block {
   width: 306.05px;

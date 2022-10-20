@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-4 add__user-card" height="400">
+  <v-card class="pa-4 add__user-card" height="400" width="307">
     <v-system-bar color="white">
       <v-spacer></v-spacer>
       <v-btn @click="closeModal" right icon><v-icon>mdi-close</v-icon></v-btn>
@@ -85,6 +85,7 @@ export default {
             idEmployee: newId,
           });
         }
+        localStorage.setItem("users", JSON.stringify(this.users));
         this.closeModal();
       }
     },
