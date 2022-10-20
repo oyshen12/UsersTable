@@ -1,4 +1,6 @@
-# userstable
+# UsersTable
+
+Проект доступен на GitHub Pages: https://oyshen12.github.io/UsersTable/
 
 ## Project setup
 ```
